@@ -11,8 +11,11 @@ app.use(require("morgan")("dev"));
 app.use("/api", require("./api"));
 
 // Simple error handling middleware
-app.use((error, req, res, next) => {
-  res.status(res.status || 500).send({ error: error });
+app.use((err, req, res, next) => {
+  console.error(err);
+  const status = err.status ?? 500;
+  const message = err.message ?? 'Internal server error.';
+  res.status(status).json({ message });
 });
 
 app.listen(PORT, () => {
