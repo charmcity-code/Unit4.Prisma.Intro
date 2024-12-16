@@ -45,7 +45,7 @@ router.post("/", async (req, res, next) => {
     }
 
     const author = await prisma.author.create({ data: { name } });
-    res.json(author);
+    res.status(201).json(author);
   } catch {
     next();
   }
